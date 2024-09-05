@@ -38,6 +38,20 @@ st.markdown("""
         font-size: 1.2em;
         margin-right: 10px;
     }
+    .stDataFrame {
+        width: 100%;
+    }
+    .stDataFrame table {
+        width: 100% !important;
+    }
+    .stDataFrame th, .stDataFrame td {
+        white-space: normal !important;
+        padding: 5px !important;
+    }
+    .stDataFrame th {
+        background-color: #f1f3f6;
+        font-weight: bold;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -150,7 +164,8 @@ if st.button('🚀 식단 최적화 시작'):
         st.subheader('🏆 아래 식단으로 바꿔보는건 어떨까요?')
         for i, (optimized_diet, optimized_fitness, improvements) in enumerate(improved_diets, 1):
             st.markdown(f"### 제안 식단 {i}")
-            st.dataframe(diet_to_dataframe(optimized_diet, f"Optimized Diet {i}"), use_container_width=True)
+            df = diet_to_dataframe(optimized_diet, f"Optimized Diet {i}")
+            st.dataframe(df, height=400, use_container_width=True)
             
             col1, col2, col3, col4 = st.columns(4)
             with col1:
