@@ -5,6 +5,7 @@ from load_data import load_and_process_data, create_nutrient_constraints, load_a
 from evaluation_function import calculate_harmony_matrix, get_top_n_harmony_pairs
 from MOO import MultiObjectiveDietOptimizer
 from utils import diet_to_dataframe, count_menu_changes
+import os
 
 # Set page config
 st.set_page_config(page_title="식단 최적화 프로그램", page_icon="🍽️", layout="wide")
