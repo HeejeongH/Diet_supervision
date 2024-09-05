@@ -140,8 +140,7 @@ if uploaded_file is not None:
     initial_fitness = optimizer.fitness(diet_db, weekly_diet)
     
     st.subheader('📅 초기 식단')
-    df = diet_to_dataframe(weekly_diet, "Initial Diet")
-    st.dataframe(df, height=400, use_container_width=True)
+    st.dataframe(diet_to_dataframe(weekly_diet, "Initial Diet"), use_container_width=True)
     st.info(f"📊 초기 식단 적합도: 영양({initial_fitness[0]:.2f}), 비용({initial_fitness[1]:.2f}), 조화({initial_fitness[2]:.2f}), 다양성({initial_fitness[3]:.2f})")
         
 if st.button('🚀 식단 최적화 시작'):
@@ -165,8 +164,7 @@ if st.button('🚀 식단 최적화 시작'):
         st.subheader('🏆 아래 식단으로 바꿔보는건 어떨까요?')
         for i, (optimized_diet, optimized_fitness, improvements) in enumerate(improved_diets, 1):
             st.markdown(f"### 제안 식단 {i}")
-            df = diet_to_dataframe(optimized_diet, f"Optimized Diet {i}")
-            st.dataframe(df, height=400, use_container_width=True)
+            st.dataframe(diet_to_dataframe(optimized_diet, f"Optimized Diet {i}"), use_container_width=True)
             
             col1, col2, col3, col4 = st.columns(4)
             with col1:
