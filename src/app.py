@@ -140,7 +140,8 @@ if uploaded_file is not None:
     initial_fitness = optimizer.fitness(diet_db, weekly_diet)
     
     st.subheader('📅 초기 식단')
-    st.dataframe(diet_to_dataframe(weekly_diet, "Initial Diet"), use_container_width=True)
+    df = diet_to_dataframe(weekly_diet, "Initial Diet")
+    st.dataframe(df, height=400, use_container_width=True)
     st.info(f"📊 초기 식단 적합도: 영양({initial_fitness[0]:.2f}), 비용({initial_fitness[1]:.2f}), 조화({initial_fitness[2]:.2f}), 다양성({initial_fitness[3]:.2f})")
         
 if st.button('🚀 식단 최적화 시작'):
