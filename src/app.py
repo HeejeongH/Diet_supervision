@@ -40,12 +40,15 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# 데이터 로드 및 초기화 (이전과 동일)
+def get_file_path(filename):
+    base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, 'data', filename)
+    
 @st.cache_data
 def load_data():
-    diet_db_path = '../data/DIET_2401.xlsx'
-    menu_db_path = '../data/Menu_ingredient_nutrient.xlsx'
-    ingre_db_path = '../data/Ingredient_Price.xlsx'
+    diet_db_path = get_file_path('DIET_2401.xlsx')
+    menu_db_path = get_file_path('Menu_ingredient_nutrient.xlsx')
+    ingre_db_path = get_file_path('Ingredient_Price.xlsx')
     
     diet_db = load_and_process_data(diet_db_path, menu_db_path, ingre_db_path)
     nutrient_constraints = create_nutrient_constraints()
@@ -112,8 +115,11 @@ def calculate_improvements(initial_fitness, optimized_fitness):
     return improvements
 
 if uploaded_file is not None:
+    menu_db_path = get_file_path('Menu_ingredient_nutrient.xlsx')
+    ingre_db_path = get_file_path('Ingredient_Price.xlsx')
+    
     #import_sample = load_sample_file(uploaded_file)
-    weekly_diet = load_and_process_data(uploaded_file, '../data/Menu_ingredient_nutrient.xlsx', '../data/Ingredient_Price.xlsx')
+    weekly_diet = load_and_process_data(uploaded_file, menu_db_path, ingre_db_path)
     
     optimizer = MultiObjectiveDietOptimizer(all_menus, nutrient_constraints, harmony_matrix)
     initial_fitness = optimizer.fitness(diet_db, weekly_diet)
